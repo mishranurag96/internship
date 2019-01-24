@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Lobster" />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!--
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <style>
+        body {
+            background-color: #fcfcfc;
+        }
+
+        .hello {
+            border: 1px solid transparent;
+            margin-top: 10%;
+            background-color: white;
+            height: 650px;
+            width: 100%;
+        }
+
+        .bar {
+            margin-top: 10%;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .links {
+            list-style-type: none;
+            margin: 4% 0;
+        }
+
+        .links li {
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        .links li a {
+            padding: 5px;
+            color: #5d6063;
+            font-family: 'Roboto';
+            transition: all 0.2s ease-in-out;
+        }
+
+        .links li a:hover,
+        .links li a.active {
+            color: dodgerblue;
+            font-weight: 450;
+            border-left: 3px solid dodgerblue;
+            border-bottom: 3px solid dodgerblue;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0 100px;
+            width: 100%;
+            z-index: 1;
+            box-sizing: border-box;
+            position: fixed;
+            transition: 0.5s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        header .fa {
+            color: dodgerblue;
+        }
+
+        header .logo {
+            color: dodgerblue;
+            height: 50px;
+            line-height: 50px;
+            font-size: 24px;
+            float: left;
+            font-family: 'Lobster', cursive;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            list-style: none;
+        }
+
+        header nav ul li a {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            color: dodgerblue;
+            text-decoration: none;
+            color: darkturquoise;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: grey;
+
+        }
+
+        .menu-toggle {
+            color: black;
+            float: right;
+            line-height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            z-index: 1;
+        }
+
+        .fo {
+            padding-top: 25%;
+            text-align: center;
+        }
+
+        .fo h1 {
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 15px 5px 10px;
+        }
+
+        footer {
+            color: dodgerblue;
+            background-color: white;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            bottom: 0;
+        }
+
+        footer p {
+            height: 50px;
+        }
+
+        @media screen and (max-width:700px) {
+            header {
+                padding: 0 20px;
+                transition: 0.5s;
+            }
+
+            .bar {
+                margin-top: 14%;
+            }
+
+            .bar ul li {
+                padding: 2px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .bg {
+                height: 600px;
+            }
+
+
+            header nav {
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 50px);
+                background: white;
+                top: 50px;
+                left: -100%;
+                transition: 0.5s;
+            }
+
+            header nav.active {
+                left: 0;
+            }
+
+            .active {}
+
+            header nav ul {
+                display: block;
+                text-align: center;
+
+            }
+
+            header nav ul li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+            }
+
+            header nav ul li a {
+                width: 100%;
+                color: #5d6063;
+
+            }
+
+            header nav ul li a:hover {
+                text-decoration: none;
+                color: dodgerblue;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #06D85F;
+        }
+
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+        }
+
+        @media screen and (max-width: 700px) {
+            .box {
+                width: 70%;
+            }
+
+            .popup {
+                width: 70%;
+            }
+        }
+
+        .about-us {
+            margin: 4em auto;
+            width: 1100px;
+            max-width: 90%;
+        }
+
+        .about-us::after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+
+        @media only screen and (min-width: 1000px) {
+
+            .about-us article,
+            .about-us aside {
+                float: left;
+                width: 47.5%;
+            }
+        }
+
+        @media only screen and (min-width: 1000px) {
+            .about-us article {
+                margin-right: 5%;
+            }
+        }
+
+        .about-us article h2 {
+            margin: 0;
+            font-size: 40px;
+            font-weight: 300;
+            color: #308fc3;
+        }
+
+        .about-us article p {
+            margin-bottom: 2em;
+            font-size: 16px;
+            line-height: 28px;
+            font-weight: 300;
+            color: #676767;
+        }
+
+        .about-us aside ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .about-us aside ul::after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+
+        .about-us aside ul li {
+            display: table;
+            width: 100%;
+            height: 170px;
+        }
+
+        @media only screen and (min-width: 1000px) {
+            .about-us aside ul li {
+                float: left;
+                width: 33.3333333333%;
+            }
+        }
+
+        .about-us aside ul li:first-child {
+            background-color: #308fc3;
+        }
+
+        .about-us aside ul li:nth-child(2) {
+            background-color: #35b8e4;
+        }
+
+        .about-us aside ul li:nth-child(3) {
+            background-color: #308fc3;
+        }
+
+        .about-us aside ul li h3 {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .about-us aside ul li h3 span {
+            display: block;
+            color: #fff;
+        }
+
+        .about-us aside ul li h3 span:first-child {
+            font-family: 'Roboto', sans-serif;
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        .about-us aside ul li h3 span:nth-child(2) {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        #div {
+            margin-top: 15%;
+            font-family: 'Roboto', cursive;
+        }
+
+        .head {
+            text-align: center;
+        }
+
+        .heading {
+            font-size: 50px;
+            color: darkturquoise;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .mail {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .fot {
+            text-align: center;
+        }
+
+        .ic {
+            font-size: 32px;
+        }
+
+        .ico {
+            margin-top: 10%;
+            width: 100px;
+        }
+
+        .ico .row a {
+            color: black;
+        }
+
+        .ico .row #fb:hover {
+            color: #365899;
+            transition: all 0.7s ease-in-out;
+        }
+
+        .ico .row #insta:hover {
+            color: #c32aa3;
+            transition: all 0.7s ease-in-out;
+        }
+
+        .ico .row #ld:hover {
+            color: #007bb5;
+            transition: all 0.7s ease-in-out;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <div class="logo"><a href="/">hireScript();</a></div>
+            <nav>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    {% if session['username'] %}
+                    {% if k %}
+                    {% if hello.check =="company" %}
+                    <li>
+                        <a href="{{url_for('comdash',display=session['username'])}}">Dashboard</a>
+                    </li>
+                    {% elif hello.check == "students" %}
+                    <li>
+                        <a href="{{url_for('dashboard',display=session['username'])}}">Dashboard</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{{url_for('admins',display=session['username'])}}">Dashboard</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{url_for('logout')}}" class="cd-signin">Logout</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
+                    <li>
+                        <a href="{{url_for('logsign')}}">Login/Signup</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </header>
+    </div>
+    <div class="container" id="div">
+        <div class="about-us">
+            <div class="head">
+                <span class="heading">hireScript();</span>
+            </div>
+            <br>
+            <br>
+            <h2>“College degree for getting a jobs/internships is nothing but a paper weight”</h2>
+            <br>
+            <p>If you have a screw-driver simply stop drawing the diagram of it. If you have the same thought rather
+                are on the same page where we are( of providing practical experience) then “Pat your back” because,
+                We at hireScript are working solely for the ones who thinks has something out of the box to contribute
+                in startups than theories taught in school/college,so put on your skills hat and join us for grabing the
+                opportunity for yourselves.
+                Simply sign up and relax,let us drive the car and take you to the road where you can learn driving too.</p>
+            <h2>“Developing country needs developing people”</h2>
+            <br>
+            <h5>The algorithm? Here you go :</h5>
+            <ol>
+                <li>Create your account</li>
+                <li>Fill in the basic details asked</li>
+                <li>Sit and relax</li>
+                <li>Keep checking the status of your applications.</li>
+                <li>There isn’t any hidden cost.</li>
+                <li>If you are good in your genre you’ll for sure get the internship(without any partiality)</li>
+            </ol>
+            <br>
+            <br>
+            <h5>Few things to keep on your todo:</h5>
+            <ol>
+                <li>Apply only for one role in which you think you are good at.</li>
+                <li>Always be very active on your e-mail notifications.</li>
+                <li>If you have already got the internship from some other platform make a habbit of updating the
+                    team through email.</li>
+            </ol>
+            <br>
+            <br>
+            <div class="fot">
+                <span class="mail">We are reachable at team@hirescript.in</span>
+                <div class="ico container">
+                    <div class="row">
+                        <div class="col-md-4"><a id="insta" href="https://www.instagram.com/hirescript/"><i class="ic fa fa-instagram" aria-hidden="true"></i></a></div>
+                        <div class="col-md-4"><a id="fb" href="https://m.facebook.com/hirescript/community"><i class="ic fa fa-facebook-square" aria-hidden="true"></i></a></div>
+                        <div class="col-md-4"><a id="ld" href="https://www.linkedin.com/company/hirescript"><i class="ic fa fa-linkedin-square" aria-hidden="true"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p><strong>&copy; hireScript 2019</strong></p>
+    </footer>
+    <script>
+        $('.menu-toggle').on('click', function() {
+            $('nav').toggleClass('active');
+        });
+
+        function incrementn(elem, finalVal) {
+            var currVal = parseInt(elem.innerHTML, 10);
+            if (currVal < finalVal) {
+                currVal++;
+                elem.textContent = currVal + "+";
+
+                setTimeout(function() {
+                    incrementn(elem, finalVal);
+                }, 40)
+            }
+        };
+
+        function incrementp(elem, finalVal) {
+            var currVal = parseInt(elem.innerHTML, 10);
+            if (currVal < finalVal) {
+                currVal++;
+                elem.textContent = currVal + "+";
+
+                setTimeout(function() {
+                    incrementp(elem, finalVal);
+                }, 5)
+            }
+        };
+
+        function incrementc(elem, finalVal) {
+            var currVal = parseInt(elem.innerHTML, 10);
+            if (currVal < finalVal) {
+                currVal++;
+                elem.textContent = currVal + "+";
+
+                setTimeout(function() {
+                    incrementc(elem, finalVal);
+                }, 10)
+            }
+        };
+        var num = document.getElementById('num');
+        var pro = document.getElementById('pro');
+        var cos = document.getElementById('cos');
+        incrementn(num, 25)
+        incrementp(pro, 500)
+        incrementc(cos, 200)
+
+    </script>
+
+</body>
+
+</html>

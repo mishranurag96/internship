@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Lobster" />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!--
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <style>
+        body {
+            background-color: #fcfcfc;
+        }
+
+        .hello {
+            border: 1px solid transparent;
+            margin-top: 7%;
+            background-color: white;
+            width: 100%;
+            margin-bottom: 10%;
+        }
+
+        .bar {
+            margin-top: 10%;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .links {
+            list-style-type: none;
+            margin: 4% 0;
+        }
+
+        .links li {
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        .links li a {
+            padding: 5px;
+            color: #5d6063;
+            font-family: 'Roboto';
+            transition: all 0.2s ease-in-out;
+        }
+
+        .links li a:hover,
+        .links li a.active {
+            color: dodgerblue;
+            font-weight: 450;
+            border-left: 3px solid dodgerblue;
+            border-bottom: 3px solid dodgerblue;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0 100px;
+            width: 100%;
+            z-index: 1;
+            box-sizing: border-box;
+            position: fixed;
+            transition: 0.5s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        header .fa {
+            color: dodgerblue;
+        }
+
+        header .logo {
+            color: dodgerblue;
+            height: 50px;
+            line-height: 50px;
+            font-size: 24px;
+            float: left;
+            font-family: 'Lobster', cursive;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            list-style: none;
+        }
+
+        header nav ul li a {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            color: dodgerblue;
+            text-decoration: none;
+            color: darkturquoise;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: grey;
+
+        }
+
+        .menu-toggle {
+            color: black;
+            float: right;
+            line-height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            z-index: 1;
+        }
+
+        .fo {
+            padding-top: 25%;
+            text-align: center;
+        }
+
+        .fo h1 {
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 15px 5px 10px;
+        }
+
+        footer {
+            color: dodgerblue;
+            background-color: white;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            bottom: 0;
+        }
+
+        footer p {
+            height: 50px;
+        }
+
+        @media screen and (max-width:700px) {
+            header {
+                padding: 0 20px;
+                transition: 0.5s;
+            }
+
+            .bar {
+                margin-top: 14%;
+            }
+
+            .bar ul li {
+                padding: 2px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .bg {
+                height: 600px;
+            }
+
+
+            header nav {
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 50px);
+                background: white;
+                top: 50px;
+                left: -100%;
+                transition: 0.5s;
+            }
+
+            header nav.active {
+                left: 0;
+            }
+
+            .active {}
+
+            header nav ul {
+                display: block;
+                text-align: center;
+
+            }
+
+            header nav ul li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+            }
+
+            header nav ul li a {
+                width: 100%;
+                color: #5d6063;
+
+            }
+
+            header nav ul li a:hover {
+                text-decoration: none;
+                color: dodgerblue;
+            }
+            footer {
+                text-align: center;
+            }
+            
+        }
+        input#sea{
+            z-index: 0;
+        }
+        .overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 90%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 90%;
+  }
+  .popup{
+    width: 90%;
+  }
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <header>
+            <div class="logo"><a href="/">hireScript();</a></div>
+            <nav>
+                <ul>
+                    <li><a href="{{url_for('about',display=display)}}">About Us</a></li>
+                    <li><a href="{{url_for('logout')}}" class="cd-signin">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </header>
+    </div>
+    <div class="bar">
+        <ul class="links">
+            <li><a href="#" class="active">Students <i class="fa fa-graduation-cap" aria-hidden="true"></i></a></li>
+            <li><a href="{{url_for('adminc',display=display)}}">Companies <i class="fa fa-building" aria-hidden="true"></i></a></li>
+            <li><a href="{{url_for('settings',display=display)}}">Settings <i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+        </ul>
+        <hr>
+    </div>
+    <div class="container hello">
+        <form action="" method="post">
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    Select intern for:
+                    <select class="form-control" name="comp" required>
+                        <option value="0" hidden></option>
+                        {% for i in com %}
+                        <option value="{{i.name}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    Search:
+                    <div class="input-group">
+                        <input onkeyup="myFunction()" id="sea" type="text" name="search" class="form-control" placeholder="Search Students by Skills">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <table id="mytab" class="table table-striped" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <!--                            <th>Email</th>-->
+                            <th>Mobile No.</th>
+                            <!--                            <th>Resume</th>-->
+                            <!--                            <th>Skills</th>-->
+                            <th>Take Action</th>
+                            <th>More Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for items in u %}
+                        <tr>
+                            {% if lst %}
+                            {% for i in lst %}
+                            {% if i.hide == 'no' %}
+                            {% if i.user == items.id %}
+                            <td>{{items.name}}</td>
+                            <td>{{items.contact_number}}</td>
+                            <!--
+<td><a href="{{i.resume}}">{{i.resume}}</a></td>
+<td>{{i.internship_pref}}</td>
+-->
+                            <td><select id="lrole" class="form-control" name="{{items.email}}" style="font-size: larger; margin-top: 5px;">
+                                    <option value="0" hidden></option>
+                                    <option value="Selected">Selected</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Pending">Pending</option>
+                                </select></td>
+                            <td><a class="btn btn-primary" href="#{{i.user}}"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+                            <div id="{{i.user}}" class="overlay">
+                                <div class="popup">
+                                    <h2>{{items.name}}</h2>
+                                    <a class="close" href="#">&times;</a>
+                                    <div class="content">
+                                        <p class="p">Email: <small class="muted">{{items.email}}</small></p>
+                                        <p class="p">Contact No.: <small class="muted">{{items.contact_number}}</small></p>
+                                        <p class="p">Skills: <small class="muted">{{i.internship_pref}}</small></p>
+                                        <p class="p">Intern's Location: <small class="muted">{{i.location}}</small></p>
+                                        <p class="p">Resume: <small class="muted"><a href="{{i.resume}}">{{i.resume}}</a></small></p>
+                                        <p class="p">Duration of Internship:<small class="muted">{{i.duration}}</small></p>
+                                        <p class="p">Alternate Contact: <small class="muted">{{i.alternate_contact}}</small></p>
+                                        <p class="p">Internship Preference: <small class="muted">{{i.pref}}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="container" style="width: 30px; margin: auto;">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+            <br>
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{error}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            {% if msg %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            <br>
+        </form>
+    </div>
+    <br>
+    <footer>
+        <p><strong>&copy; hireScript 2019</strong></p>
+    </footer>
+    <script>
+        $('.menu-toggle').on('click', function() {
+            $('nav').toggleClass('active');
+        });
+
+        function myFunction() {
+            // Declare variables 
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("sea");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("mytab");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+ body {
+     margin: 0;
+     padding: 0;
+     font-family: sans-serif;
+ }
+
+ .bg {
+     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)),
+         url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+     height: 700px;
+     background-size: cover;
+ }
+
+ header {
+     position: absolute;
+     top: 0;
+     left: 0;
+     padding: 0 100px;
+     width: 100%;
+     box-sizing: border-box;
+     position: fixed;
+     transition: 0.5s;
+ }
+
+ .new {
+     background: white;
+     box-shadow: 0px 0px 16px 0px black;
+     transition: all 0.5s ease-in-out;
+ }
+
+
+ .new .logo {
+     color: dodgerblue;
+ }
+
+ .new .fa {
+     color: dodgerblue;
+ }
+
+ .new ul li a {
+     color: dodgerblue;
+ }
+
+ header .fa {
+     color: white;
+ }
+
+ header .logo {
+     color: #bcbcbc;
+     height: 50px;
+     line-height: 50px;
+     font-size: 24px;
+     float: left;
+     font-family: 'Lobster', cursive;
+ }
+
+ header .logo {
+     color: white;
+ }
+
+ header nav {
+     float: right;
+ }
+
+ header nav ul {
+     margin: 0;
+     padding: 0;
+     display: flex;
+ }
+
+ header nav ul li {
+     list-style: none;
+ }
+
+ header nav ul li a {
+     height: 50px;
+     line-height: 50px;
+     padding: 0 20px;
+     color: black;
+     text-decoration: none;
+     color: white;
+ }
+
+ header nav ul li a:hover,
+ header nav ul li a.active {
+     color: grey;
+     text-decoration: none;
+
+ }
+
+ .menu-toggle {
+     color: black;
+     float: right;
+     line-height: 50px;
+     font-size: 24px;
+     cursor: pointer;
+     display: none;
+ }
+
+
+ footer {
+     color: dodgerblue;
+     background-color: white;
+     height: 100px;
+     line-height: 100px;
+     text-align: center;
+ }
+
+
+ @media screen and (max-width:700px) {
+     header {
+         padding: 0 20px;
+         transition: 0.5s;
+     }
+
+     .menu-toggle {
+         display: block;
+         z-index: 1;
+     }
+
+     .bg {
+         height: 600px;
+     }
+
+
+     header nav {
+         position: absolute;
+         width: 100%;
+         height: calc(100vh - 50px);
+         background: white;
+         top: 50px;
+         left: -100%;
+         transition: 0.5s;
+     }
+
+     header nav.active {
+         left: 0;
+     }
+
+     .active {}
+
+     header nav ul {
+         display: block;
+         text-align: center;
+
+     }
+
+     header nav ul li {
+         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+     }
+
+     header nav ul li a {
+         width: 100%;
+         color: #5d6063;
+
+     }
+
+     header nav ul li a:hover {
+         text-decoration: none;
+         color: dodgerblue;
+     }
+ }

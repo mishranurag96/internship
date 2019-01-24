@@ -1,0 +1,36 @@
+<header>
+    <div class="logo">hireScript();</div>
+    <nav>
+        <ul>
+            {% if session['username'] %}
+            <li><a href="{{url_for('about',display=display)}}">About Us</a></li>
+            {% if hello.check =="company" %}
+            <li>
+                <a href="{{url_for('comdash',display=session['username'])}}">Dashboard</a>
+            </li>
+            {% elif hello.check == "students" %}
+            <li>
+                <a href="{{url_for('dashboard',display=session['username'])}}">Dashboard</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{url_for('admins',display=session['username'])}}">Dashboard</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{{url_for('logout')}}" class="cd-signin">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{url_for('about',display='index')}}">About Us</a>
+            </li>
+            <li>
+                <a href="{{url_for('logsign')}}">Login/Signup</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="menu-toggle">
+        <i class="fa fa-bars"></i>
+    </div>
+</header>

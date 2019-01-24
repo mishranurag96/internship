@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Lobster" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <style>
+        body {
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80") 50% fixed;
+  background-size: cover;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(359deg);
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+  background: rgba(4, 40, 68, 0.85);
+}
+
+.login {
+  border-radius: 2px 2px 5px 5px;
+  padding: 10px 20px 20px 20px;
+  width: 90%;
+  max-width: 320px;
+  background: #ffffff;
+  position: relative;
+  padding-bottom: 80px;
+    z-index: 0;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.login.loading button {
+  max-height: 100%;
+  padding-top: 50px;
+}
+.login.loading button .spinner {
+  opacity: 1;
+  top: 40%;
+}
+.login.ok button {
+  background-color: #8bc34a;
+}
+.login.ok button .spinner {
+  border-radius: 0;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  height: 20px;
+  animation: none;
+  transform: rotateZ(-45deg);
+}
+.login input {
+  display: block;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  transition: border-width 0.2s ease;
+  border-radius: 2px;
+  color: #ccc;
+}
+.login input + i.fa {
+  color: #fff;
+  font-size: 1em;
+  position: absolute;
+  margin-top: -47px;
+  opacity: 0;
+  left: 0;
+  transition: all 0.1s ease-in;
+}
+.login input:focus {
+  outline: none;
+  color: #444;
+  border-color: #2196F3;
+  border-left-width: 35px;
+}
+.login input:focus + i.fa {
+  opacity: 1;
+  left: 30px;
+  transition: all 0.25s ease-out;
+}
+.login a {
+  font-size: 0.8em;
+  color: #2196F3;
+  text-decoration: none;
+}
+.login .title {
+  color: #444;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0 30px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+.login button {
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px;
+  background: #2196F3;
+  color: #fff;
+  display: block;
+  border: none;
+  margin-top: 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-height: 60px;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 2px 2px;
+  transform: rotateZ(0deg);
+  transition: all 0.1s ease-out;
+  border-bottom-width: 7px;
+}
+.login button .spinner {
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border: 4px solid #ffffff;
+  border-top-color: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  left: 50%;
+  top: 0;
+  opacity: 0;
+  margin-left: -20px;
+  margin-top: -20px;
+  animation: spinner 0.6s infinite linear;
+  transition: top 0.3s 0.3s ease, opacity 0.3s 0.3s ease, border-radius 0.3s ease;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+}
+.login:not(.loading) button:hover {
+  box-shadow: 0px 1px 3px #2196F3;
+}
+.login:not(.loading) button:focus {
+  border-bottom-width: 4px;
+}
+        li{
+            color: white;
+        }
+               header {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0 100px;
+            width: 100%;
+            box-sizing: border-box;
+            position: fixed;
+            transition: 0.5s;
+                   z-index: 1;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        header .fa {
+            color: dodgerblue;
+        }
+
+        header .logo {
+            color: dodgerblue;
+            height: 50px;
+            line-height: 50px;
+            font-size: 24px;
+            float: left;
+            font-family: 'Lobster', cursive;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            list-style: none;
+        }
+
+        header nav ul li a {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            color: dodgerblue;
+            text-decoration: none;
+            color: darkturquoise;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: grey;
+
+        }
+
+        .menu-toggle {
+            color: black;
+            float: right;
+            line-height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .fo {
+            padding-top: 25%;
+            text-align: center;
+        }
+
+        .fo h1 {
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 15px 5px 10px;
+        }
+
+        footer {
+            color: dodgerblue;
+            background-color: white;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            bottom: 0;
+        }
+
+        footer p {
+            height: 50px;
+        }
+
+        @media screen and (max-width:700px) {
+            header {
+                padding: 0 20px;
+                transition: 0.5s;
+            }
+
+            .bar {
+                margin-top: 14%;
+            }
+
+            .bar ul li {
+                padding: 2px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .bg {
+                height: 600px;
+            }
+
+
+            header nav {
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 50px);
+                background: white;
+                top: 50px;
+                left: -100%;
+                transition: 0.5s;
+            }
+
+            header nav.active {
+                left: 0;
+            }
+
+            .active {}
+
+            header nav ul {
+                display: block;
+                text-align: center;
+
+            }
+
+            header nav ul li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+            }
+
+            header nav ul li a {
+                width: 100%;
+                color: #5d6063;
+
+            }
+
+            header nav ul li a:hover {
+                text-decoration: none;
+                color: dodgerblue;
+            }
+        }
+ 
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">hireScript();</div>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('about',display='index')}}">About Us</a></li>
+                <li><a href="{{url_for('logsign')}}" class="cd-signin">Login/Signup</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">
+            <i class="fa fa-bars"></i>
+        </div>
+    </header>
+    <div class="wrapper">
+        <form class="login" action="" method="post">
+            <p class="title">Log in</p>
+            <input type="text" name="username" placeholder="Username" />
+            <i class="fa fa-user"></i>
+            <input type="password" name="password" placeholder="Password" />
+            <i class="fa fa-key"></i>
+            <button type="submit">
+                <i class="spinner"></i>
+                <span class="state">Log in</span>
+            </button>
+        </form>
+    </div>
+    <footer>
+        <p><strong>&copy; hireScript 2019</strong></p>
+    </footer>
+
+    <script>
+        $('.menu-toggle').on('click', function() {
+            $('nav').toggleClass('active');
+        });
+
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='js/jquery-easing/jquery.easing.min.js')}}"></script>
+</body>
+
+</html>

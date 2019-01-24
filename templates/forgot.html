@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Login/SignUp</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web|Dancing+Script|Lobster" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/custom.css')}}" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <style>
+        .login-page {
+          width: 375px;
+        padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  animation-name: launch;
+  animation-duration: 4s;
+  position: relative;
+  z-index: 0;
+  background: #FFFFFF;
+  max-width: 600px;
+  margin: 100px auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.5);
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: deepskyblue;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: dodgerblue;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 16px;
+}
+.form .message a {
+  color: dodgerblue;
+  text-decoration: none;
+}
+.form .login-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: dodgerblue;
+}
+        body{
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+            background-size: cover;
+        }
+
+@media only screen and (max-width: 500px) {
+  .login-page {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.error {
+  color: red;
+}
+
+
+        body{
+        height: 100vh;
+        background: url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80") 50% fixed;
+        background-size: cover;     
+        }
+
+        header {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            padding: 0 100px;
+            width: 100%;
+            box-sizing: border-box;
+            position: fixed;
+            transition: 0.5s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.5);
+        }
+
+        header .fa {
+            color: darkturquoise;
+        }
+
+        header .logo {
+            color: dodgerblue;
+            height: 50px;
+            line-height: 50px;
+            font-size: 24px;
+            float: left;
+            font-family: 'Lobster', cursive;
+        }
+
+        header nav {
+            float: right;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            list-style: none;
+        }
+
+        header nav ul li a {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            color: dodgerblue;
+            text-decoration: none;
+            color: darkturquoise;
+            z-index: 10;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: grey;
+
+        }
+
+        .menu-toggle {
+            color: black;
+            float: right;
+            line-height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .fo {
+            padding-top: 25%;
+            text-align: center;
+        }
+
+        .fo h1 {
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 15px 5px 10px;
+        }
+
+        footer {
+            color: white;
+            background-color: dodgerblue;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            bottom: 0;
+        }
+        footer p{
+            height: 50px;
+        }
+
+        @media screen and (max-width:500px) {
+            header {
+                padding: 0 20px;
+                transition: 0.5s;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .bg {
+                height: 600px;
+            }
+
+
+            header nav {
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 50px);
+                background: white;
+                top: 50px;
+                left: -100%;
+                transition: 0.5s;
+            }
+
+            header nav.active {
+                left: 0;
+            }
+
+            .active {}
+
+            header nav ul {
+                display: block;
+                text-align: center;
+
+            }
+
+            header nav ul li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+            }
+
+            header nav ul li a {
+                width: 100%;
+                color: #5d6063;
+
+            }
+
+            header nav ul li a:hover {
+                text-decoration: none;
+                color: dodgerblue;
+            }
+        }
+        .sel select{
+            font-family: "Roboto", sans-serif;
+              outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.5);
+        }
+        .sel select option{
+            border: 0;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="login-page">
+        <header>
+            <div class="logo"><a href="/">hireScript();</a></div>
+            <nav>
+                <ul>
+                    <li><a href="{{url_for('about',display='index')}}">About Us</a></li>
+                    <li><a href="{{url_for('logsign')}}" class="cd-signin">Login/Signup</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </header>
+        <div class="form">
+            <form class="register-form" autocomplete="off" id="sign" action="" method="post">
+                <input name="email" data-validation="email" id="create-email" type="email" placeholder="Email*" required />
+                <input name="mob" id="create-contact" type="text" placeholder="Contact No.*" required />
+                <br>
+                <button name="create-button" type="submit" id="create-button">retrive password</button>
+                {% if p %}
+                <p class="message">Your Password: {{p}}</p>
+                {% endif %}
+                <p class="message"><a href="{{url_for('logsign')}}">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{error}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        {% if msg %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    <footer style="background-color: white; color: dodgerblue;">
+        <p>&copy; hireScript 2019</p>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            $('.menu-toggle').on('click', function() {
+                $('nav').toggleClass('active');
+            });
+            $('#sign').validate({
+                rules: {
+                    cpass: {
+                        equalTo: '#create-password'
+                    },
+                },
+                messages: {
+                    cpass: {
+                        equalTo: 'Password Not Matched'
+                    },
+                }
+            });
+
+            //            $('.message a').on('click', function() {
+            //                $('form').animate({
+            //                    height: "toggle",
+            //                    opacity: "toggle"
+            //                }, "fast");
+            //            });
+            //          var c = $('#create-password').val();
+            // var p = $('#create-confirm-password').val();
+            // $('#create-password').on("input", function() {
+            // console.log('Value is:' + c);
+            // });
+
+        });
+
+    </script>
+</body>
+
+</html>
